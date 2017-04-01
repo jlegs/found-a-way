@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
+import { trim } from 'lodash';
 
 import { Cards } from './../imports/api/cards';
 
@@ -23,13 +24,15 @@ const renderCards = (cards) => {
 
 const submitNote = (e) => {
   e.preventDefault();
-  let cardText = e.target.cardInput.value;
-  Cards.insert({
-    username: 'Anonymous',
-    data: cardText
-  });
+  let cardText = trim(e.target.cardInput.value);
+  if (cardText) {
+    Cards.insert({
+      username: 'Anonymous',
+      data: cardText
+    });
+  };
   e.target.cardInput.value = '';
-}
+};
 
 Meteor.startup(() => {
   Tracker.autorun(() => {
