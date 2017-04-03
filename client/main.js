@@ -25,13 +25,15 @@ const renderCards = (cards) => {
 const submitNote = (e) => {
   e.preventDefault();
   let cardText = trim(e.target.cardInput.value);
-  if (cardText) {
+  let username = trim(e.target.username.value);
+  if (cardText && username) {
     Cards.insert({
-      username: 'Anonymous',
-      data: cardText
+      username: username,
+      data: `I found a way to ${cardText}`
     });
+    e.target.cardInput.value = '';
+    e.target.username.value = '';
   };
-  e.target.cardInput.value = '';
 };
 
 Meteor.startup(() => {
@@ -39,10 +41,14 @@ Meteor.startup(() => {
     let cards = Cards.find().fetch();
     let mainTemplate = (
       <div>
-        <h1>I found a way too...</h1>
+        <h1>User Submissions:</h1>
+        <p>(Both fields must be filled out for a submission to go through.)</p>
         <form onSubmit={submitNote}>
+          <input type="text" name="username" placeholder="Enter name here."></input>
           <input type="text" name="cardInput" placeholder="Enter text here."></input>
+          <input type="submit" value="Submit"></input>
         </form>
+        <hr />
         {renderCards(cards)}
       </div>
     );
