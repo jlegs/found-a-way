@@ -16,6 +16,10 @@ const renderCards = (cards) => {
         <div>
           Card Text: {card.data}
         </div>
+        <div>
+          Delete Card:&nbsp;
+          <button onClick={() => Cards.remove({_id: card._id})}>X</button>
+        </div>
         <hr />
       </div>
     )
