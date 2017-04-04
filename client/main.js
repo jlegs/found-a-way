@@ -17,8 +17,27 @@ const renderCards = (cards) => {
           Card Text: {card.data}
         </div>
         <div>
+          Likes: {card.likes}
+        </div>
+        <div>
           Delete Card:&nbsp;
           <button onClick={() => Cards.remove({_id: card._id})}>X</button>
+        </div>
+        <div>
+          Vote up:&nbsp;
+          <button onClick={() => {
+            Cards.update(card._id, {$inc: {likes: 1}
+            });
+          }}>+1
+          </button>
+        </div>
+        <div>
+          Vote down:&nbsp;
+          <button onClick={() => {
+            Cards.update(card._id, {$inc: {likes: -1}
+            });
+          }}>-1
+          </button>
         </div>
         <hr />
       </div>
@@ -33,7 +52,8 @@ const submitNote = (e) => {
   if (cardText && username) {
     Cards.insert({
       username: username,
-      data: `I found a way to ${cardText}`
+      data: `I found a way to ${cardText}`,
+      likes: 0
     });
     e.target.cardInput.value = '';
     e.target.username.value = '';
