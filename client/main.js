@@ -68,8 +68,9 @@ Meteor.startup(() => {
         <h1>User Submissions:</h1>
         <p>(Both fields must be filled out for a submission to go through.)</p>
         <form onSubmit={submitNote}>
-          <input type="text" name="username" placeholder="Enter name here."></input>
-          <input type="text" name="cardInput" placeholder="Enter text here."></input>
+          My username is: <input type="text" name="username" placeholder="Enter name here."></input>
+          <br />
+          I found a way to: <input type="text" name="cardInput" placeholder="Enter text here."></input>
           <input type="submit" value="Submit"></input>
         </form>
         <hr />
